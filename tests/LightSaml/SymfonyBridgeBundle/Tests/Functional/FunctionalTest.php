@@ -31,20 +31,15 @@ use LightSaml\Validator\Model\Signature\SignatureValidatorInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Filesystem\Filesystem;
 
 class FunctionalTest extends WebTestCase
 {
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
-        $_SERVER['KERNEL_CLASS'] = TestKernel::class;
-        $_SERVER['KERNEL_DIR'] = __DIR__;
-        $fs = new Filesystem();
-        $fs->remove(__DIR__.'/cache');
     }
 
-    protected static function getKernelClass()
+    protected static function getKernelClass(): string
     {
         return TestKernel::class;
     }
@@ -138,7 +133,7 @@ class FunctionalTest extends WebTestCase
         $buildContainer = static::$kernel->getContainer()->get('lightsaml.container.build');
         $ownContainer = $buildContainer->getOwnContainer();
         $this->assertInstanceOf(EntityDescriptorProviderInterface::class, $ownContainer->getOwnEntityDescriptorProvider());
-        $this->assertInternalType('array', $ownContainer->getOwnCredentials());
+        $this->assertIsArray($ownContainer->getOwnCredentials());
         array_map(function ($credential) {
             $this->assertInstanceOf(CredentialInterface::class, $credential);
         }, $ownContainer->getOwnCredentials());

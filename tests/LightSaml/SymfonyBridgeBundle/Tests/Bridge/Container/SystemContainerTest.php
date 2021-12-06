@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SystemContainerTest extends TestCase
 {
@@ -16,7 +15,6 @@ class SystemContainerTest extends TestCase
     {
         new SystemContainer(
             $this->getMockBuilder(RequestStack::class)->getMock(),
-            $this->getMockBuilder(SessionInterface::class)->getMock(),
             $this->getMockBuilder(TimeProviderInterface::class)->getMock(),
             $this->getMockBuilder(EventDispatcherInterface::class)->getMock(),
             $this->getMockBuilder(LoggerInterface::class)->getMock()

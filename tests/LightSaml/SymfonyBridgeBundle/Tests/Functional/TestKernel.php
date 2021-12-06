@@ -14,7 +14,7 @@ class TestKernel extends Kernel
      *
      * @return iterable|BundleInterface[] An iterable of bundle instances
      */
-    public function registerBundles()
+    public function registerBundles(): array
     {
         $bundles = [
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
@@ -27,7 +27,7 @@ class TestKernel extends Kernel
     /**
      * Loads the container configuration.
      */
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__.'/config.yml');
     }

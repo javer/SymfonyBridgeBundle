@@ -4,6 +4,7 @@ namespace LightSaml\SymfonyBridgeBundle\Tests\DependencyInjection;
 
 use LightSaml\SymfonyBridgeBundle\DependencyInjection\Configuration;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\Definition\Processor;
 
 class ConfigurationTest extends TestCase
@@ -20,10 +21,6 @@ class ConfigurationTest extends TestCase
         $this->processConfiguration($config);
     }
 
-    /**
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage The child node "own" at path "light_saml_symfony_bridge" must be configured
-     */
     public function test_does_not_allow_empty_config()
     {
         $config = [
@@ -31,6 +28,10 @@ class ConfigurationTest extends TestCase
 
             ],
         ];
+
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('The child config "own" under "light_saml_symfony_bridge" must be configured.');
+
         $this->processConfiguration($config);
     }
 
